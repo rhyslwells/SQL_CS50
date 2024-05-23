@@ -1,0 +1,1 @@
+-- CREATE TABLE emp(empid INT NOT NULL PRIMARY KEY,empname TEXT NOT NULL,email NOT NULL);
