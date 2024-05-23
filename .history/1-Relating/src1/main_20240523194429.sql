@@ -1,0 +1,4 @@
+
+-- .tables
+
+SELECT * FROM "books";
