@@ -1,24 +1,17 @@
 -- cleaning import data:
 
--- -- Deletes prior tables if they exist
-DROP TABLE IF EXISTS "meteorites";
-DROP TABLE IF EXISTS "meteorites_temp";
-
--- Creates a table to store imported data
-CREATE TABLE "meteorites_temp"(
-  "name" TEXT,
-  "id" INTEGER,
-  "nametype" TEXT,
-  "class" TEXT,
-  "mass" INTEGER,
-  "discovery" TEXT,
-  "year" INTEGER,
-  "lat" INTEGER,
-  "long" INTEGER,
-  primary key("id")
+CREATE TABLE "meteorites_temp" (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT,
+    "class" TEXT,
+    "mass" REAL,
+    "discovery" TEXT,
+    "year" INTEGER,
+    "lat" REAL,
+    "long" REAL
 );
 
-.import --csv --skip 1 meteorites.csv meteorites_temp
+.import --csv meteorites.csv meteorites_temp
 
 --1.
 
@@ -61,9 +54,6 @@ WHERE "long" IS NOT NULL;
 DELETE FROM "meteorites_temp"
 WHERE "nametype" = 'Relict';
 
-ALTER TABLE "meteorites_temp" DROP COLUMN "nametype";
-
-
 
 -- Create the final table
 CREATE TABLE "meteorites" (
@@ -82,9 +72,10 @@ CREATE TABLE "meteorites" (
 INSERT INTO "meteorites" ("title", "class", "mass", "discovery", "year", "lat", "long")
 SELECT "name", "class", "mass", "discovery", "year", "lat", "long"
 FROM "meteorites_temp"
-ORDER BY "year" DESC, "name" ASC;
+ORDER BY "year" ASC, "name" ASC;
 
 -- Drop the temporary table
 -- DROP TABLE "meteorites_temp";
 
--- SELECT * FROM meteorites LIMIT 5;
+
+

@@ -5,20 +5,19 @@ DROP TABLE IF EXISTS "meteorites";
 DROP TABLE IF EXISTS "meteorites_temp";
 
 -- Creates a table to store imported data
-CREATE TABLE "meteorites_temp"(
-  "name" TEXT,
-  "id" INTEGER,
-  "nametype" TEXT,
-  "class" TEXT,
-  "mass" INTEGER,
-  "discovery" TEXT,
-  "year" INTEGER,
-  "lat" INTEGER,
-  "long" INTEGER,
-  primary key("id")
+CREATE TABLE "meteorites_temp" (
+    "name" TEXT,
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "class" TEXT,
+    "mass" REAL,
+    "discovery" TEXT,
+    "year" INTEGER,
+    "lat" REAL,
+    "long" REAL
 );
 
 .import --csv --skip 1 meteorites.csv meteorites_temp
+
 
 --1.
 
@@ -85,6 +84,4 @@ FROM "meteorites_temp"
 ORDER BY "year" DESC, "name" ASC;
 
 -- Drop the temporary table
--- DROP TABLE "meteorites_temp";
-
--- SELECT * FROM meteorites LIMIT 5;
+DROP TABLE "meteorites_temp";
